@@ -1,0 +1,20 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+
+
+
+data = pd.read_csv("https://raw.githubusercontent.com/tirthajyoti/Machine-Learning-with-Python/master/Datasets/Mall_Customers.csv")
+data.drop(["CustomerID", "Gender", "Age"], axis=1, inplace=True)
+print(data.head())
+
+my_cluster = KMeans(n_clusters=5, max_iter=1000)
+my_cluster.fit(data)
+
+KMeans(max_iter=1000, n_clusters=5)
+Y_predicted = my_cluster.predict(data)
+plt.scatter(data["Annual Income (k$)"], data["Spending Score (1-100)"], c=Y_predicted)
+print(plt.show())
+print(silhouette_score(data, Y_predicted)
